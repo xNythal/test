@@ -24,5 +24,11 @@ match command:
         subprocess.run(("git", "remote", *options))
     case "init":
         subprocess.run(("git", "init", *options))
+    case "pushup":
+        subprocess.run(("git", "add", "."))
+        if "-m" not in options:
+            options.extend(["-m", input("Commit Message: ")])
+        subprocess.run(("git", "commit", *options))
+        subprocess.run(("git", "push"))
     case _:
         subprocess.run(("git", command, *options))
